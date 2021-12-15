@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Відображення практичних завдань з нарисної геометрії у доповненій реальності."
+    />
+    <title>Практичні завдання</title>
+<!-- СТИЛИ -->
+<!-- Material Design Lite -->
+<link rel="stylesheet" href="mdl/material.min.css">
+<!-- Иконочный шрифт -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<!-- Цвет -->
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.purple-deep_purple.min.css" />
+<!-- Шрифт -->
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+<!-- Кастомизация -->
+<link rel="stylesheet" type="text/css" href="style.css">
+<!-- СКРИПТЫ -->
+<script src="mdl/material.min.js"></script>
+<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+<!-- AR -->
+<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+<script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+<!-- Жесты -->
+<script src="https://raw.githack.com/fcor/arjs-gestures/master/dist/gestures.js"></script>
+<!-- <script src="practiсe.js"></script> -->
+<script type="text/javascript">
+  var path_before = "models/practice";
+
+  window.onload = function () {
+    document
+      .getElementById("main_btn")
+      .addEventListener("click", function () {
+        var task_number = document.getElementById("task_number").value;
+        var var_number = document.getElementById("var_number").value;
+        document
+          .getElementById("model")
+          .setAttribute("gltf-model", `${path_before}/task_${task_number}/var_${var_number}.glb`);
+    });
+  }
+</script>
+
+<body style="margin : 0px; overflow: hidden;">
+
+  <!-- Верхняя панель -->
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <!-- Кнопка домой -->
+        <button id="home_btn" class="mdl-button mdl-js-button mdl-button--icon"
+        onClick='location.href="index.html"'>
+        <i class="material-icons">home</i>
+      </button>
+      <!-- Название темы -->
+      <div class="mdl-layout-title">Перегляд практичних завдань</div>
+    </div>
+  </header>
+</div>
+
+<!-- Описание -->
+
+<!-- Теоретический текст про прямую -->
+<div id="theory_text" class="mdl-card__supporting-text" style="display: none;">
+</div>
+</div>
+<!-- Панель управления -->
+<div class="control">
+
+<!-- Номер задания -->
+<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 25vw">
+  <input class="mdl-textfield__input" type="text" pattern="[0-9]*" id="task_number">
+  <label class="mdl-textfield__label" for="task_number">Завдання</label>
+  <span class="mdl-textfield__error">Введіть, будь ласка, номер</span>
+</div>
+
+<!-- Номер варианта -->
+<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 25vw">
+  <input class="mdl-textfield__input" type="text" pattern="[0-9]*" id="var_number">
+  <label class="mdl-textfield__label" for="task_number">Варіант</label>
+  <span class="mdl-textfield__error">Введіть, будь ласка, номер</span>
+</div>
+
+
+<!-- Кнопка для вывода модели по заданому заданию и варианту-->
+<button id="main_btn" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+  OK
+</button>
+
+</div>
+
+<a-scene
+arjs
+embedded
+renderer="logarithmicDepthBuffer: true;"
+vr-mode-ui="enabled: false"
+gesture-detector
+id="scene"
+>
+<a-marker type =' pattern ' url ='markers/pattern-GMKG.patt'>
+<a-entity
+id="model"
+position="0 0 0"
+scale="1 1 1"
+class="clickable"
+gesture-handler="minScale: 0.1; maxScale: 20"
+>
+</a-entity>
+</a-marker>
+<a-entity camera></a-entity>
+</a-scene>
+</body>
+</html>
